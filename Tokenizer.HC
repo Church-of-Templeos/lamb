@@ -90,7 +90,7 @@ I32 *TokenizeText(CTokenizer *t,U8 *text) {
   return ret;
 }
 
-CTokenizer *tokenizer=TokenizerInit("T:/gpt2_tokenizer.bin");
+CTokenizer *tokenizer=TokenizerInit("gpt2_tokenizer.bin");
 #if __CMD_LINE__
 I32 *toks=TokenizeText(tokenizer,"Aiwnios issa great compiler");
 I64 idx=0;

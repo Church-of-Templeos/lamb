@@ -1109,7 +1109,7 @@ U0 GPTUpdate(CGPT *model,F64 learning_rate, F64 beta1, F64 beta2, F64 _eps, F64 
       model->m_memory[i] = m;
       model->v_memory[i] = v;
       pmem[p][i] -= learning_rate * (m_hat / (Sqrt(v_hat) + _eps) + weight_decay * param);
-    }
+    }
 }
 
 //Retursn static buffer
@@ -1212,6 +1212,6 @@ U0 GPTTrain(CGPT *g,I64 steps,...) {
   Free(dataset);
 }
 
-CGPT *gpt=LoadGPTCheckpoint("T:/gpt2_124M.bin");
+CGPT *gpt=LoadGPTCheckpoint("gpt2_124M.bin");
 GPTTrain(gpt,6,"I eat carrots");
 GPTRun(gpt,"I eat");
