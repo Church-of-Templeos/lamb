@@ -1,3 +1,4 @@
+#exe {Cd(__DIR__);;};;
 class CTrie {
   I64 token;
   CTrie *children[0x100];
@@ -50,7 +51,6 @@ CTokenizer *TokenizerInit(U8 *file) {
     size2=*(body++);
     tok->tokens[i]=CAlloc(size2+1);
     MemCpy(tok->tokens[i],body,size2);
-    PrintI(tok->tokens[i],i);
     AddToken(&tok->trie,i,tok->tokens[i]);
     body+=size2;
   }
@@ -75,17 +75,26 @@ loop:;
     }
     goto loop;
   }
-  PrintI(t->tokens[best],best);
   return best;  
 } 
 I32 *TokenizeText(CTokenizer *t,U8 *text) {
+  U8 *otext=MStrUtil(text,SUF_REM_TRAILING|SUF_REM_LEADING);
+  text=otext;
   I32 *ret=CAlloc(4*StrLen(text)+4);
   I64 ptr=0;
   while(*text) {
     ret[ptr++]=TokenizeText0(t,&text);
   }
   ret[ptr]=t->end_token;
+  Free(otext);
   return ret;
 }
 
-
+CTokenizer *tokenizer=TokenizerInit("T:/gpt2_tokenizer.bin");
+#if __CMD_LINE__
+I32 *toks=TokenizeText(tokenizer,"Aiwnios issa great compiler");
+I64 idx=0;
+for(idx=0;toks[idx]!=tokenizer->end_token;idx++)
+  "%s",tokenizer->tokens[toks[idx]];
+"\n";
+#endif
